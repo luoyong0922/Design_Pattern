@@ -1,4 +1,4 @@
-package com.roy.singleton;
+package com.roy.multiThread;
 
 import org.junit.Test;
 
@@ -6,7 +6,15 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class MockMultiThreadController {
+
+/**
+  *
+  * @author Administrator
+  *该程序用来模拟发送命令与执行命令，主线程代表指挥官，新建20个线程代表战士，战士一直等待着指挥官下达命令，
+  *若指挥官没有下达命令，则战士们都必须等待。一旦命令下达，战士们都去执行自己的任务，指挥官处于等待状态，战士们任务执行完毕则报告给
+  *指挥官，指挥官则结束等待。
+  */
+public class CountdownLatchTest{
 
     private static int threadCount = 20;
 
@@ -57,3 +65,7 @@ public class MockMultiThreadController {
         service.shutdown(); //任务结束，停止线程池的所有线程
     }
 }
+//                作者：菜鸟大明
+//                来源：CSDN
+//                原文：https://blog.csdn.net/zhao9tian/article/details/40346899
+//                版权声明：本文为博主原创文章，转载请附上博文链接！
