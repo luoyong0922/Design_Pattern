@@ -30,9 +30,18 @@ import java.io.Serializable;
  * 否则每次反序列化一个序列化的对象实例时都会创建一个新的实例。
  */
 public class Singleton1 implements Serializable {
-        private static volatile Singleton1 singleton = null;
-
+    /**
+     * 类加载时进行实例化对象
+     * volatile是为了防止指令重排序
+     */
+        private static volatile Singleton1 singleton;
+    /**
+     * 私有构造，防止外部new对象
+     */
         private Singleton1(){}
+/**
+ * 通过静态方法获取对象实例
+ */
 //     双重校验锁
         public static Singleton1 getSingleton(){
             if(singleton == null){
@@ -44,7 +53,9 @@ public class Singleton1 implements Serializable {
             }
             return singleton;
         }
-
+    /**
+     * 确保对象序列化及反序列化后对象不再重新创建
+     */
         private Object readResolve(){
             return singleton;
         }

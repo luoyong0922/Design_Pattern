@@ -1,5 +1,9 @@
 package com.roy.singleton;
 
+import org.junit.Test;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -63,6 +67,7 @@ public class MockMultiThreadCreateSingleTonTest {
 //                e.printStackTrace();
 //            }
 //        }
+        constructorGetClass();
         singleton1 = Singleton1.getSingleton();
         System.out.println("singleton1:"+singleton1.hashCode());
         singleton2 = Singleton2.getSingleton();
@@ -70,5 +75,31 @@ public class MockMultiThreadCreateSingleTonTest {
         singleton3 = Singleton3.INSTANCE;
         System.out.println("singleton3:"+singleton3.hashCode());
         System.out.println("singleton3 name:"+singleton3.name());
+        EnumSingleton enumSingleton = EnumSingleton.RUN;
+        System.out.println("enumSingleton:"+enumSingleton.hashCode());
+    }
+
+    // 通过反射方式，将会得到新的单例
+    public static void constructorGetClass(){
+        Class c = null;
+        try {
+            c = Class . forName ( Singleton1. class . getName ( ) );
+            Constructor ct = c . getDeclaredConstructor ( ) ;
+            ct . setAccessible ( true ) ;
+            Singleton1 singleton = ( Singleton1 ) ct . newInstance ( ) ;
+            System.out.println("singleton:"+singleton.hashCode());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }

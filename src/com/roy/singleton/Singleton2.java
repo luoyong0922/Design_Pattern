@@ -11,13 +11,25 @@ package com.roy.singleton;
  * 序列化与反序列化安全
  */
 public class Singleton2 {
-        private static class Holder {
-            private static Singleton2 singleton = new Singleton2();
-        }
-
-        private Singleton2(){}
-
-        public static Singleton2 getSingleton(){
-            return Holder.singleton;
-        }
+    /**
+     * 静态内部类实例化对象
+     */
+    private static class Holder {
+        /**
+         * 类加载时进行实例化对象
+         */
+        private static Singleton2 singleton = new Singleton2();
+    }
+    /**
+     * 私有构造，防止外部new对象
+     */
+    private Singleton2(){}
+    /**
+     * 通过静态方法获取对象实例
+     *
+     * @return
+     */
+    public static Singleton2 getSingleton(){
+        return Holder.singleton;
+    }
 }
